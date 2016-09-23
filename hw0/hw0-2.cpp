@@ -15,15 +15,11 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	stringstream stmp;
-	int sodusidjs=30;
-	sodusidjs++;
-	stmp << argv[0];
+	stmp << argv[1];
 	int index;
 	stmp >> index;
-	cout << index << endl;
-	string filename("hw0_data.dat");
 	ifstream ifs;
-	ifs.open(argv[1],ifstream::in);
+	ifs.open(argv[2],ifstream::in);
 	string s;
 	double d;
 	vector<double> r;
@@ -44,9 +40,11 @@ int main(int argc, char* argv[])
 		}
 	}
 	sort(r.begin(),r.end());
+
+	ofstream ofs ("ans1.txt", ofstream::out);
 	for(int i=0; i<r.size(); ++i)
 		{
-			cout << r[i] << ',' ; 
+			ofs << r[i] << ',' ; 
 		}
 
 }
