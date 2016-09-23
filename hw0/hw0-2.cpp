@@ -15,6 +15,8 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	stringstream stmp;
+	int sodusidjs=30;
+	sodusidjs++;
 	stmp << argv[0];
 	int index;
 	stmp >> index;
