@@ -13,16 +13,20 @@ trainlist=trainlist.astype(float)
 print np.corrcoef(trainlist)[9]
 remain=17
 for i in range(17):
-	if np.corrcoef(trainlist)[9][i]<0.4:
+	if np.corrcoef(trainlist)[9][i]<0.35:
 		print i
 		remain-=1
 print 'remain=',remain
 
 
-# 0.2=> L=14000
-# 0.4=> L=10000
-	# 0.6 10300
-
+# 0.2=> 
+# 0.35=> L=10486
+# L of trainning= 281.484985478
+# true L: 42.3751276974
+# 0.4=> L=10600
+	# 0.6 42/281
+# L of trainning= 281.787973593
+# true L: 42.4893611422
 
 
 

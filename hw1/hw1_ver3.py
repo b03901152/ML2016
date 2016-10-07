@@ -7,8 +7,8 @@ for x in range(1,240): #240days
 	for i in range(18):
 		trainlist[i]+=data[18*x+i,:].tolist()
 trainlist=np.array(trainlist)
-index_or_rows_should_be_delete=[10,16,15,14,13,12,11,10,7,6,4,3,2,1,0]
-PM2_5_index=2 #2th
+index_or_rows_should_be_delete=[10,16,15,14,13,10,4,3,2,1,0]
+PM2_5_index=4 #1th
 for i in index_or_rows_should_be_delete:
 	trainlist=np.delete(trainlist,i,0)
 trainlist=trainlist.astype(float)
@@ -45,7 +45,7 @@ def init_w():
 		tmp.append(0.1)
 	for i in range(len(trainlist[0])):
 		w.append(tmp)
-	# w=np.array(w)
+	w=np.array(w)
 w=np.genfromtxt('w.csv', delimiter="," , dtype="string")
 w=w.astype(float)
 # init_w()
@@ -59,7 +59,8 @@ def test_L():
 			test=trainlist[i,:,j:j+9]
 			y=trainlist[i][PM2_5_index][j+9]
 			L+= (b+np.sum(np.sum(w*trainning,axis=0),axis=0)-y)**2
-	print 'L of trainning=',L*1e-6
+	print 'L of trainning=',L/(470*12)
+	return L/(470*12)
 
 def true_L():
 	L=0
@@ -71,18 +72,18 @@ def true_L():
 	outcome=np.array(outcome)
 	for i in range(240):
 		L+= (outcome[i]-answer[i])**2
-	print 'true L:',L
-	return L
+	print 'true L:',L/240
+	return L/240
 
 partial_L_partial_w=0
 epsilon=1
 b=0
-n=n0=1e-6	
-rate_sum=1e6
+n=n0=1e-7
+rate_sum=1e5
 rho=0.8
 L_hold=0
 counter=0
-for x in range(1000):
+for x in range(10000000):
 	for i in range(12):
 		for j in range(470):#20*24
 			trainning=trainlist[i,:,j:j+9]
@@ -95,14 +96,18 @@ for x in range(1000):
 			rate_sum+=rate
 			G=(rate_sum+epsilon)**0.5
 			n=n0/G
-	if x%10==0:
-		print n
+	if x%100==0:
+		# print rate
+		print n,rate_sum
 		test_L()
-		if (L_hold-true_L())**2 < 1 and counter==0:
-			rate_sum*=1.1
-			print 'ccccccccccccccccccccchang!!!!!!!!!!!!!'
-			counter+=5
-		counter-1
+		# if L_hold-true_L() <  1e-8 and counter==0:
+		# 	rate_sum*=1.1
+		# 	print 'ccccccccccccccccccccchang!!!!!!!!!!!!!'
+		# 	counter+=5
+		# counter-=1
+		# if counter<0:
+		# 	counter=0
+		# print 'counter',counter
 		L_hold=true_L()
 		np.savetxt('w.csv',w,fmt="%s",delimiter=',')
 
