@@ -1,2 +1,2 @@
 #!/bin/bash
-python test.py $1 $2 $3
+python test_method4.py $1 $2 $3

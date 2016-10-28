@@ -1,2 +1,2 @@
 #!/bin/bash
-python hw2.py $1 $2
+python method4_output.py $1 $2
