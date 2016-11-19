@@ -1,1 +1,1 @@
-python3 cnn_class_final.py $1 $2
+python3 autoencoder.py $1 $2

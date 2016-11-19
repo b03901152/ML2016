@@ -6,7 +6,6 @@ from keras.models import Sequential, load_model
 from keras.utils.np_utils import to_categorical
 import sys
 
-
 model=load_model(sys.argv[2])
 
 
